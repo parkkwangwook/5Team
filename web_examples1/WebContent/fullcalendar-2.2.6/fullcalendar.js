@@ -8108,6 +8108,7 @@ function EventManager(options) { // assumed to be a calendar
 				var startParam = firstDefined(source.startParam, options.startParam);
 				var endParam = firstDefined(source.endParam, options.endParam);
 				var timezoneParam = firstDefined(source.timezoneParam, options.timezoneParam);
+				
 
 				if (startParam) {
 					data[startParam] = rangeStart.format();
@@ -8118,7 +8119,9 @@ function EventManager(options) { // assumed to be a calendar
 				if (options.timezone && options.timezone != 'local') {
 					data[timezoneParam] = options.timezone;
 				}
-
+				
+				//alert("ssssssssssssssssssssss : " + startParam);
+				
 				pushLoading();
 				$.ajax($.extend({}, ajaxDefaults, source, {
 					data: data,
@@ -8243,12 +8246,13 @@ function EventManager(options) { // assumed to be a calendar
 
 		// massage start/end values, even if date string values
 		event.start = t.moment(event.start);
-		if (event.end) {
+		/*if (event.end) {*/
+			// alert("박광욱");
 			event.end = t.moment(event.end);
-		}
+		/*}
 		else {
 			event.end = null;
-		}
+		}*/
 
 		mutateEvent(event, getMiscEventProps(event)); // will handle start/end/allDay normalization
 		reportEvents(cache); // reports event modifications (so we can redraw)
@@ -8467,6 +8471,7 @@ function EventManager(options) { // assumed to be a calendar
 	function assignDatesToEvent(start, end, allDay, event) {
 		event.start = start;
 		event.end = end;
+		/*alert("ssssssssssssssssssss" + event.start);*/
 		event.allDay = allDay;
 		normalizeEventDateProps(event);
 		backupEventDates(event);
@@ -8727,7 +8732,8 @@ function EventManager(options) { // assumed to be a calendar
 				end: event._end,
 				allDay: event._allDay
 			};
-
+			//alert("ssssssssssssssssssssssssssssssss : " + start);
+			// alert("박광욱");
 			if (clearEnd) {
 				newProps.end = null;
 			}
@@ -8771,7 +8777,8 @@ function EventManager(options) { // assumed to be a calendar
 				backupEventDates(event); // regenerate internal _start/_end/_allDay
 			});
 		});
-
+		/*alert("event start : " + event.start);
+		alert("event end : " + event.end);*/
 		return function() {
 			for (var i = 0; i < undoFunctions.length; i++) {
 				undoFunctions[i]();
@@ -9693,7 +9700,8 @@ fcViews.agenda = View.extend({ // AgendaView
 		var daySegs = [];
 		var timedSegs;
 		var i;
-
+		
+		
 		// separate the events into all-day and timed
 		for (i = 0; i < events.length; i++) {
 			if (events[i].allDay) {
@@ -9703,6 +9711,9 @@ fcViews.agenda = View.extend({ // AgendaView
 				timedEvents.push(events[i]);
 			}
 		}
+		
+		//alert("timeevents : " + timeEvents);
+		//alert("events : " + events.end);
 
 		// render the events in the subcomponents
 		timedSegs = this.timeGrid.renderEvents(timedEvents);

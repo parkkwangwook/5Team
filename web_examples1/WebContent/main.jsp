@@ -18,9 +18,7 @@
 </head>
 <body>
 	<jsp:include page="/header.jsp"/>
-	<a href = "<%=request.getContextPath() %>/FrontServlet?cmd=viewBoard">게시판 사용하기</a><br>
-	<img width=1000px src="http://cfs15.tistory.com/original/16/tistory/2009/02/24/21/39/49a3ea934d631">
-
+	<%@ include file = "/../fullcalendar-2.2.6/demos/agenda-views.html" %>	
 	<jsp:include page="/footer.jsp"/>
 </body>
 </html>

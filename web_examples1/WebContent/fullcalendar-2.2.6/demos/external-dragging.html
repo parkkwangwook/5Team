@@ -3,15 +3,18 @@
 <head>
 <meta charset='utf-8' />
 <link href='../fullcalendar.css' rel='stylesheet' />
-<link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
+<!-- <link href='../fullcalendar.print.css' rel='stylesheet' media='print' /> -->
 <script src='../lib/moment.min.js'></script>
 <script src='../lib/jquery.min.js'></script>
 <script src='../lib/jquery-ui.custom.min.js'></script>
-<script src='../fullcalendar.min.js'></script>
+<script src='../fullcalendar.js'></script>
 <script>
 
 	$(document).ready(function() {
-
+		var start;
+		var end;
+		var title;
+		var temp = new Array();
 
 		/* initialize the external events
 		-----------------------------------------------------------------*/
@@ -43,18 +46,60 @@
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
+			timeFormat: {
+				'':'HH:mm',
+				agenda: 'HH:mm',
+				//console.log("agenda" , HH:mm)
+			},
 			editable: true,
 			droppable: true, // this allows things to be dropped onto the calendar
-			drop: function() {
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
+			eventDrop : function(event) {
+				for(items in event) {
+					console.log(items);
 				}
+				title = event.title;
+				start = event.start.toString()
+				
+				console.log('Drop_title : ', title);
+				console.log('Drop_start : ', start);
+				//console.log('end111', event.end.toString());	
+				
+				if (event.end == null) {
+					end = event.end;
+					console.log('Drop_end : ', end);
+				} else {
+					end = event.end.toString();
+					console.log('Drop_end : ', end);
+				}
+				
+				//alert("잠깐만!");
+
+			},
+			eventDragStop : function(event, ui) {},
+			eventResize : function(event, delta, revertFunc) {
+				title = event.title;
+				start = event.start.toString();
+				end = event.end.toString();
+				
+				/* ArrayList<timetable> list;
+				if () 
+				list.add(?); */
+				console.log("Resize_title : " + title);
+				console.log("Resize_start : " + start);
+				console.log("Resize_End : " + end);	
+				
+				/* for (items in event) {
+					console.log(items);
+				} */
+				
+				alert(event.title + ", " + start + ", " + end);
+			},
+			eventResizeStop : function(event) {},
+			drop : function(date, ui, jsEvent) {
+				console.log(date._d);
 			}
 		});
-
-
+		console.log("title : " + title + ", start : " + start + ", End : " + end);
 	});
 
 </script>

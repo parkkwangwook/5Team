@@ -6,12 +6,18 @@
 <link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
 <script src='../lib/moment.min.js'></script>
 <script src='../lib/jquery.min.js'></script>
-<script src='../fullcalendar.min.js'></script>
+<script src='../fullcalendar.js'></script>
 <script>
 
 	$(document).ready(function() {
 
 		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			
+			},
 			defaultDate: '2014-11-12',
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
@@ -23,7 +29,7 @@
 				{
 					title: 'Long Event',
 					start: '2014-11-07',
-					end: '2014-11-10'
+					end: '2014-11-11'
 				},
 				{
 					id: 999,
